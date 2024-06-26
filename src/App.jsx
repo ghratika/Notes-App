@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import Note from './components/Note';
 import Notification from './components/Notification';
@@ -52,7 +53,9 @@ const App = () => {
     setNewNote(event.target.value);
   };
 
-  const notesToShow = showAll ? notes : notes.filter((note) => note.important);
+  const notesToShow = showAll
+    ? notes
+    : notes.filter((note) => note.important === true);
 
   return (
     <div>
