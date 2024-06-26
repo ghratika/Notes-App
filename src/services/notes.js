@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = '/api/${process.env.PORT}';
+const baseUrl = '/api/notes';
 
 const getAll = () => {
   const request = axios.get(baseUrl);
