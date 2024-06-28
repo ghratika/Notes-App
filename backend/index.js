@@ -6,6 +6,43 @@ app.use(express.json());
 const cors = require('cors');
 app.use(express.static('dist'));
 app.use(cors());
+const mongoose = require('mongoose');
+require('dotenv').config();
+const Note = require('./models/note');
+
+// if (process.argv.length < 3) {
+//   console.log(
+//     'Please provide the password as an argument: node mongo.js <password>'
+//   );
+//   process.exit(1);
+// }
+
+// const password = process.argv[2];
+const password = process.env.MONGODB_PASSWORD;
+if (!password) {
+  console.log(
+    'Please provide the password as an argument: node mongo.js <password>'
+  );
+  process.exit(1);
+}
+
+const url = process.env.MONGODB_URL;
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+});
+
+// const Note = mongoose.model('Note', noteSchema);
+
+app.get('/api/notes', (request, response) => {
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
+});
 
 let notes = [
   {
