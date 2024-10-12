@@ -26,6 +26,10 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000")
 })
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Notes App API!");
+});
+
 // import routes
 import authRouter from "./routes/auth.route.js"
 import noteRouter from "./routes/note.route.js"
